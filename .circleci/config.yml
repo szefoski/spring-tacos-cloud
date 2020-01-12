@@ -8,13 +8,13 @@ commands:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo 'export DOCKER_TAG=master' >> $BASH_ENV
-              echo "export DOCKER_APP_PORT=${DOCKER_APP_PORT_MASTER}" >> $BASH_ENV
+              echo "export DOCKER_APP_PORT=8090" >> $BASH_ENV
             elif [ "${CIRCLE_BRANCH}" == "develop" ]; then
               echo 'export DOCKER_TAG=develop' >> $BASH_ENV
-              echo "export DOCKER_APP_PORT=${DOCKER_APP_PORT_DEVELOP}" >> $BASH_ENV
+              echo "export DOCKER_APP_PORT=8091" >> $BASH_ENV
             else
               echo 'export DOCKER_TAG=feature' >> $BASH_ENV
-              echo "export DOCKER_APP_PORT=${DOCKER_APP_PORT_FEATURE}" >> $BASH_ENV
+              echo "export DOCKER_APP_PORT=8092" >> $BASH_ENV
             fi
             source $BASH_ENV
       
@@ -80,6 +80,7 @@ jobs:
       - run: ssh $DEPLOY_SERVER_LOGIN@$DEPLOY_SERVER_IP "docker stop $DOCKER_TAG || true"
       - run: ssh $DEPLOY_SERVER_LOGIN@$DEPLOY_SERVER_IP "docker rm $DOCKER_TAG || true"
       - run: ssh $DEPLOY_SERVER_LOGIN@$DEPLOY_SERVER_IP "docker pull szefoski/tacos:$DOCKER_TAG"
+      - run: echo $DOCKER_TAG $DOCKER_APP_PORT
       - run: ssh $DEPLOY_SERVER_LOGIN@$DEPLOY_SERVER_IP "docker run -it -d -p $DOCKER_APP_PORT:8080 --restart always --name $DOCKER_TAG szefoski/tacos:$DOCKER_TAG"
 
   build-sonar:
