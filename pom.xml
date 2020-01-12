@@ -16,8 +16,10 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<sonar.projectKey>szefoski_spring-tacos-cloud</sonar.projectKey>
+		<sonar.organization>szefoski</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -34,11 +36,6 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-		<properties>
-			<sonar.projectKey>szefoski_spring-tacos-cloud</sonar.projectKey>
-			<sonar.organization>szefoski</sonar.organization>
-			<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		</properties>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
