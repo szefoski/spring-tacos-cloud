@@ -7,13 +7,13 @@ commands:
           name: Update PATH and Define Environment Variable at Runtime
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              echo 'export DOCKER_TAG=master' >> $BASH_ENV
+              echo "export DOCKER_TAG=$CIRCLE_PROJECT_REPONAME-master" >> $BASH_ENV
               echo "export DOCKER_APP_PORT=8090" >> $BASH_ENV
             elif [ "${CIRCLE_BRANCH}" == "develop" ]; then
-              echo 'export DOCKER_TAG=develop' >> $BASH_ENV
+              echo "export DOCKER_TAG=$CIRCLE_PROJECT_REPONAME-develop" >> $BASH_ENV
               echo "export DOCKER_APP_PORT=8091" >> $BASH_ENV
             else
-              echo 'export DOCKER_TAG=feature' >> $BASH_ENV
+              echo "export DOCKER_TAG=$CIRCLE_PROJECT_REPONAME-feature" >> $BASH_ENV
               echo "export DOCKER_APP_PORT=8092" >> $BASH_ENV
             fi
             source $BASH_ENV
