@@ -94,7 +94,10 @@ jobs:
             if [ -z "$CIRCLE_PULL_REQUEST" ]; then
               echo PULL_REQUEST NO
             else
-              env
+              unset CIRCLE_PULL_REQUEST
+              unset CI_PULL_REQUEST
+              unset CI_PULL_REQUESTS
+              unset CIRCLE_PULL_REQUESTS
               echo PULL_REQUEST YES
             fi
       - run:
