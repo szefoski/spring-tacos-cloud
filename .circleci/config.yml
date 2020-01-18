@@ -89,9 +89,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Analyze on SonarCloud
-          command: mvn verify sonar:sonar
-      - run:
           name: Check Scripts
           command:  |
             if [ -z "$CIRCLE_PULL_REQUEST" ]; then
@@ -99,6 +96,9 @@ jobs:
             else
               echo PULL_REQUEST NO
             fi
+      - run:
+          name: Analyze on SonarCloud
+          command: echo 'mvn verify sonar:sonar'
 
 workflows:
   version: 2.1
