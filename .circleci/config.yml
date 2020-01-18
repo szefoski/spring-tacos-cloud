@@ -91,18 +91,15 @@ jobs:
       - run:
           name: Check Scripts
           command:  |
-            if [ -z "$CIRCLE_PULL_REQUEST" ]; then
+            if [ -z "$CIRCLE_PR_NUMBER" ]; then
               echo PULL_REQUEST NO
+              env
+              mvn clean verify -e -X sonar:sonar
             else
-              unset CIRCLE_PULL_REQUEST
-              unset CI_PULL_REQUEST
-              unset CI_PULL_REQUESTS
-              unset CIRCLE_PULL_REQUESTS
               echo PULL_REQUEST YES
+              env
+              mvn clean verify -e -X sonar:sonar -Dsonar.pullrequest.branch=$CIRCLE_BRANCH -Dsonar.pullrequest.base=$CIRCLE_PR_REPONAME -Dsonar.pullrequest.key=$CIRCLE_PR_NUMBER
             fi
-      - run:
-          name: Analyze on SonarCloud
-          command: mvn verify sonar:sonar
 
 workflows:
   version: 2.1
