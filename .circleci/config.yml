@@ -91,6 +91,15 @@ jobs:
       - run:
           name: Analyze on SonarCloud
           command: mvn verify sonar:sonar
+    run:
+      name: Check Scripts
+      command:  |
+        if [ -z "$CIRCLE_PULL_REQUEST" ]
+        then
+          echo PULL_REQUEST YES
+        else
+          echo PULL_REQUEST NO
+        fi
 
 workflows:
   version: 2.1
