@@ -89,8 +89,16 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Analyze on SonarCloud
-          command: mvn verify sonar:sonar
+          name: Check Scripts
+          command:  |
+            if [ -z "$CIRCLE_PR_NUMBER" ]; then
+              echo PULL_REQUEST NO
+              mvn clean verify -e -X sonar:sonar -Dsonar.login=$SONAR_CLOUD_TOKEN
+            else
+              echo PULL_REQUEST YES
+              mvn clean verify -e -X sonar:sonar -Dsonar.login=$SONAR_CLOUD_TOKEN
+              # mvn clean verify -e -X sonar:sonar -Dsonar.login=$SONAR_CLOUD_TOKEN -Dsonar.pullrequest.branch=$CIRCLE_BRANCH -Dsonar.pullrequest.base=$CIRCLE_PR_REPONAME -Dsonar.pullrequest.key=$CIRCLE_PR_NUMBER
+            fi
 
 workflows:
   version: 2.1
