@@ -94,7 +94,7 @@ jobs:
             if [ -z "$CIRCLE_PR_NUMBER" ]; then
               echo PULL_REQUEST NO
               env
-              mvn clean verify -e -X sonar:sonar
+              mvn clean verify -e -X sonar:sonar -Dsonar.login=c1957f999edf6c5ef00ced36356f2dd0c33c3760
             else
               echo PULL_REQUEST YES
               env
